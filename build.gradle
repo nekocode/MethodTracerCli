@@ -1,0 +1,72 @@
+apply plugin: 'java'
+
+group 'cn.nekocode'
+version '1.0'
+sourceCompatibility = 1.8
+
+buildscript {
+    ext {
+        // The installation path of android studio
+        androidStudioPath = '/Applications/Android Studio.app'
+
+        // The path of proguard libs
+        // You can download proguard libs from https://sourceforge.net/projects/proguard/files/
+        proguardPath = 'proguard'
+
+        // Path or your rt.jar
+        rtJarPath = '/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar'
+    }
+
+    repositories {
+        flatDir dirs: proguardPath
+    }
+    dependencies {
+        classpath ':proguard:'
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+// Copy perfd directory to resources
+if (!file('src/main/resources/perfd').exists()) {
+    copy {
+        from androidStudioPath + '/Contents/plugins/android/resources/perfd'
+        into 'src/main/resources/perfd'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile files(androidStudioPath + '/Contents/plugins/android/lib/sdk-tools.jar')
+    compile files(androidStudioPath + '/Contents/plugins/android/lib/studio-profiler-grpc-1.0-jarjar.jar')
+    compile files(androidStudioPath + '/Contents/plugins/android/lib/commons-io-2.4.jar')
+    compile files(androidStudioPath + '/Contents/lib/guava-19.0.jar')
+    compile files(androidStudioPath + '/Contents/lib/android-base-common.jar')
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'cn.nekocode.tracehelper.MethodTracer')
+        attributes('Class-Path': configurations.compile.collect { it.getName() }.join(' '))
+    }
+
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
+task optimize(type: proguard.gradle.ProGuardTask) {
+    configuration 'proguard.txt'
+
+    injars jar.archivePath.toString()
+    outjars jar.archivePath.toString() + ".optimized.jar"
+    libraryjars rtJarPath
+}

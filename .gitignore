@@ -1,0 +1,9 @@
+.gradle
+.idea
+/.idea/workspace.xml
+/.idea/libraries
+/proguard
+/src/main/resources
+/build
+.DS_Store
+*.trace
