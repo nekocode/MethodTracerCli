@@ -11,7 +11,7 @@ usage: MethodTracer.jar <app-name> [-a <adb_path>] [-e <device-serial>]
        [-h] [-i <sampling-interval>] [-o <out-file>] [-p <port>] [-t <N>]
 A command-line interface of android stuido's method tracer
  -a <adb_path>            Path of adb
- -e <device-serial>       Serial number of traget connected device
+ -e <device-serial>       Serial number of connected traget device
  -h,--help                Show this help information
  -i <sampling-interval>   The sampling interval of method tracing (can ben
                           0, default is 10)
