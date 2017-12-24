@@ -13,7 +13,7 @@ buildscript {
         // You can download proguard libs from https://sourceforge.net/projects/proguard/files/
         proguardPath = 'proguard'
 
-        // Path or your rt.jar
+        // The path of rt.jar in your JRE directory
         rtJarPath = '/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar'
     }
 
@@ -33,7 +33,7 @@ sourceSets {
     }
 }
 
-// Copy perfd directory to resources
+// Copy perfd directory to resources directory
 if (!file('src/main/resources/perfd').exists()) {
     copy {
         from androidStudioPath + '/Contents/plugins/android/resources/perfd'
