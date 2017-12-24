@@ -23,5 +23,5 @@ After tracing, you can use the `monitor` in the android sdk tools to open the tr
 ![](img/monitor.png)
 
 
-If you want to build this project manually, you should make sure that the Android Studio has already been installed. And it's version is greater than or equals to 3.0.
+If you want to build this project manually, you should make sure that the Android Studio has already been installed and it's version is greater than or equals to 3.0.
 Other build information can be found in the [build.gradle](build.gradle).
